@@ -3,20 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/selectableItemBackground"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <ImageView
-        android:id="@+id/imageViewArticleImage"
+        android:id="@+id/ivArticleImage"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/app_name" />
 
 
     <TextView
-        android:id="@+id/textViewTitle"
+        android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -26,12 +29,12 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewArticleImage"
-        app:layout_constraintTop_toTopOf="@+id/imageViewArticleImage"
+        app:layout_constraintStart_toEndOf="@+id/ivArticleImage"
+        app:layout_constraintTop_toTopOf="@+id/ivArticleImage"
         android:text="Some title" />
 
     <TextView
-        android:id="@+id/textViewAuthor"
+        android:id="@+id/tvAuthor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -40,13 +43,13 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewPublishDate"
-        app:layout_constraintStart_toEndOf="@+id/imageViewArticleImage"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintEnd_toStartOf="@+id/tvPublishDate"
+        app:layout_constraintStart_toEndOf="@+id/ivArticleImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         android:text="Some author" />
 
     <TextView
-        android:id="@+id/textViewPublishDate"
+        android:id="@+id/tvPublishDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -57,6 +60,6 @@
         android:textStyle="bold"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="2019-03-20" />
 </androidx.constraintlayout.widget.ConstraintLayout>

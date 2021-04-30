@@ -11,12 +11,12 @@
         android:label="fragment_popular_articles_list"
         tools:layout="@layout/fragment_popular_articles_list" >
         <action
-            android:id="@+id/action_popularArticlesListFragment_to_popularArticlesDetailFragment"
+            android:id="@+id/action_move_to_articlesDetailFragment"
             app:destination="@id/popularArticlesDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/popularArticlesDetailFragment"
-        android:name="com.ibrahim.ny_times_demo.PopularArticlesDetailFragment"
+        android:name="com.ibrahim.ny_times_demo.ui.fragments.PopularArticlesDetailFragment"
         android:label="fragment_popular_articles_detail"
         tools:layout="@layout/fragment_popular_articles_detail" />
 </navigation>

@@ -8,5 +8,7 @@ data class PopularArticle(
     val url: String = String.empty,
     val byline: String = String.empty,
     val title: String = String.empty,
-    val imageUrl: String = String.empty
+    val abstract: String = String.empty,
+    val imageUrl: String = String.empty,
+    val imageUrlLarge: String? = null
 )

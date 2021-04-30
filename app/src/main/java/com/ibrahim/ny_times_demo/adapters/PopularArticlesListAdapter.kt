@@ -13,6 +13,7 @@ import javax.inject.Inject
 class PopularArticlesListAdapter @Inject constructor() : RecyclerView.Adapter<PopularArticlesListAdapter.PopularArticlesViewHolder>() {
 
     private val articlesList = ArrayList<PopularArticle>()
+    private var listener : OnItemClickListener? = null
 
 
     fun setArticlesList(newArticlesList : List<PopularArticle>){
@@ -21,6 +22,10 @@ class PopularArticlesListAdapter @Inject constructor() : RecyclerView.Adapter<Po
         articlesList.clear()
         articlesList.addAll(newArticlesList)
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener?){
+        this.listener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularArticlesViewHolder {
@@ -34,23 +39,23 @@ class PopularArticlesListAdapter @Inject constructor() : RecyclerView.Adapter<Po
 
     override fun getItemCount(): Int = articlesList.size
 
-
-
-    class PopularArticlesViewHolder(
-        private val binding: ItemPopularArticleBinding
+    inner class PopularArticlesViewHolder(
+            private val binding: ItemPopularArticleBinding
     ) :
-        RecyclerView.ViewHolder(binding.root){
-            fun bind(article : PopularArticle){
-                binding.apply {
-                    tvAuthor.text = article.byline
-                    tvTitle.text = article.title
-                    tvPublishDate.text = article.publish_data
-                    if(article.imageUrl.isNotEmpty()){
-                        Glide.with(ivArticleImage)
-                                .load(article.imageUrl)
-                                .into(ivArticleImage)
-                    }
+            RecyclerView.ViewHolder(binding.root){
+        fun bind(article : PopularArticle){
+            binding.apply {
+                tvAuthor.text = article.byline
+                tvTitle.text = article.title
+                tvPublishDate.text = article.publish_data
+                if(article.imageUrl.isNotEmpty()){
+                    Glide.with(ivArticleImage)
+                            .load(article.imageUrl)
+                            .into(ivArticleImage)
                 }
+
+                root.setOnClickListener{ listener?.onItemClicked(article) }
             }
+        }
     }
 }

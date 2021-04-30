@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NY_Times</string>
+    <string name="view_detail">View Detail</string>
 </resources>

@@ -7,27 +7,56 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.ibrahim.ny_times_demo.R
+import com.ibrahim.ny_times_demo.databinding.FragmentPopularArticlesDetailBinding
+import com.ibrahim.ny_times_demo.ui.base.BaseFragment
 import com.ibrahim.ny_times_demo.ui.viewmodel.PopularArticlesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_popular_articles_detail.*
 
 
 @AndroidEntryPoint
-class PopularArticlesDetailFragment : Fragment() {
+class PopularArticlesDetailFragment : BaseFragment<FragmentPopularArticlesDetailBinding>() {
 
     private val mainViewModel : PopularArticlesViewModel by activityViewModels()
 
+    private var _binding : FragmentPopularArticlesDetailBinding? = null
+    private val binding get() = _binding!!
+
+    override fun getViewBinding() = FragmentPopularArticlesDetailBinding.inflate(layoutInflater)
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popular_articles_detail, container, false)
+    ): View {
+        _binding = FragmentPopularArticlesDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initObservers()
+    }
+
+    private fun initObservers() {
+        mainViewModel.selectedArticle.observe(viewLifecycleOwner, {
+            it?.let { article ->
+               tvTitle.text =  article.title
+                tvAuthor.text = article.byline
+                tvAbstract.text = article.abstract
+                tvPublishedDate.text = article.publish_data
+                val imageUrl = article.imageUrlLarge ?: article.imageUrl
+                Glide.with(ivArticleImage)
+                        .load(imageUrl)
+                        .into(ivArticleImage)
+            }
+        })
+    }
+
+    override fun clearResources() {
+        _binding = null
     }
 
 }

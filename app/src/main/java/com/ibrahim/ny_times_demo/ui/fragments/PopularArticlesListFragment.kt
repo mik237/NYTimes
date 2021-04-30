@@ -1,17 +1,18 @@
 package com.ibrahim.ny_times_demo.ui.fragments
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ibrahim.ny_times_demo.BuildConfig
 import com.ibrahim.ny_times_demo.R
+import com.ibrahim.ny_times_demo.adapters.OnItemClickListener
 import com.ibrahim.ny_times_demo.adapters.PopularArticlesListAdapter
 import com.ibrahim.ny_times_demo.api.Status
 import com.ibrahim.ny_times_demo.databinding.FragmentPopularArticlesListBinding
@@ -24,7 +25,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBinding>() {
+class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBinding>(), OnItemClickListener {
 
     @Inject
     lateinit var articlesAdapter : PopularArticlesListAdapter
@@ -49,28 +50,34 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
         super.onViewCreated(view, savedInstanceState)
         initViews()
         initObservers()
-        fetchPopularArticles()
+        if(mainViewModel.mappedData.isNullOrEmpty()) {
+            fetchPopularArticles()
+        }
     }
 
     private fun initViews() {
+
         swipeRefreshList.apply {
-            setColorSchemeColors(
-                resources.getColor(R.color.purple_200),
-                resources.getColor(R.color.purple_500),
-                resources.getColor(R.color.purple_700)
-            )
             setOnRefreshListener {
                 swipeRefreshList.isRefreshing = false
                 fetchPopularArticles()
             }
         }
 
+        articlesAdapter.setOnItemClickListener(this)
+
         activity?.let {
+            val recyclerViewState : Parcelable? = rvPopularArticles.layoutManager?.onSaveInstanceState()
+
             rvPopularArticles.layoutManager = LinearLayoutManager(it)
             rvPopularArticles.adapter = articlesAdapter
             rvPopularArticles.addItemDecoration(
                 DividerItemDecoration(it, LinearLayoutManager(it).orientation)
             )
+
+            recyclerViewState?.let {
+                rvPopularArticles.layoutManager?.onRestoreInstanceState(it)
+            }
         }
     }
 
@@ -79,22 +86,29 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
     }
 
     private fun initObservers() {
-        mainViewModel.popularArticlesLiveData.observe(viewLifecycleOwner, Observer {
+        mainViewModel.popularArticlesLiveData.observe(viewLifecycleOwner, {
             when(it){
-                is Status.Loading ->{
+                is Status.Loading -> {
                     progressBar.isVisible = it.showLoading
                 }
-                is Status.Success ->{
+                is Status.Success -> {
                     val list = it.data as List<PopularArticle>
                     articlesAdapter.setArticlesList(list)
                 }
-                is Status.Error ->{}
+                is Status.Error -> {}
             }
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onItemClicked(article: PopularArticle) {
+        mainViewModel.selectedArticle.value = article
+        findNavController().navigate(R.id.popularArticlesDetailFragment)
+    }
+
+    override fun clearResources() {
+        articlesAdapter.setOnItemClickListener(null)
+        rvPopularArticles.adapter = null
         _binding = null
     }
+
 }

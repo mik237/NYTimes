@@ -14,21 +14,34 @@ class ViewStateMapperImpl @Inject constructor() : ViewStateMapper {
     private fun mapToArticles(result: Result) : PopularArticle{
         return with(result){
             PopularArticle(
-                id = this.id,
-                title = this.title,
-                publish_data = this.publishedDate,
-                url = this.url,
-                byline = this.byline,
-                imageUrl = getImageUrl(this.media)
+                    id = this.id,
+                    title = this.title,
+                    abstract = this.abstract,
+                    publish_data = this.publishedDate,
+                    url = this.url,
+                    byline = this.byline,
+                    imageUrl = getImageUrl(this.media),
+                    imageUrlLarge = getLargeImageUrl(this.media)
             )
         }
     }
 
     private fun getImageUrl(media: List<Media>): String {
         return if (media.isNotEmpty()
-            && media[0].type == "image"
-            && !media[0].mediaMetadata.isNullOrEmpty()){
+                && media[0].type == "image"
+                && !media[0].mediaMetadata.isNullOrEmpty()){
             return media[0].mediaMetadata[0].url
+        }
+        else
+            String.empty
+    }
+
+    private fun getLargeImageUrl(media: List<Media>): String {
+        return if (media.isNotEmpty()
+                && media[0].type == "image"
+                && !media[0].mediaMetadata.isNullOrEmpty()
+                && media[0].mediaMetadata.size >= 3){
+            return media[0].mediaMetadata[2].url
         }
         else
             String.empty

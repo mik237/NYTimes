@@ -7,5 +7,5 @@ sealed class Status<T>(
 ){
     class Success<T>(data : T) : Status<T>(data)
     class Loading<T>(show: Boolean = false) : Status<T>(showLoading = show)
-    class Error<T>(message: String? = "") : Status<T>()
+    class Error<T>(message: String? = "") : Status<T>(errorMsg = message)
 }

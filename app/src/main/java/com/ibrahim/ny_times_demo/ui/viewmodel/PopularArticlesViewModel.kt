@@ -21,11 +21,13 @@ class PopularArticlesViewModel @Inject constructor(
     private val viewStateMapper : ViewStateMapperImpl
 ) : ViewModel() {
 
+    var isTwoPaneView : Boolean = false
     var mappedData: List<PopularArticle> = emptyList()
+    val selectedArticle = MutableLiveData<PopularArticle>()
+
 
     private val _popularArticlesListLiveData = MutableLiveData<Status<*>>()
     val popularArticlesLiveData : LiveData<Status<*>> = _popularArticlesListLiveData
-    val selectedArticle = MutableLiveData<PopularArticle>()
 
     fun getNYTimesMostPopularArticles(section: String, period: Int, apiKey: String){
 

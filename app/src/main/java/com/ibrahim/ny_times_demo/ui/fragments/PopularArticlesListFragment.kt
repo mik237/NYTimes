@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_popular_articles_list.*
 import javax.inject.Inject
 
 
+@Suppress("UNCHECKED_CAST")
 @AndroidEntryPoint
 class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBinding>(), OnItemClickListener {
 
@@ -39,8 +40,8 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
     override fun getViewBinding() = FragmentPopularArticlesListBinding.inflate(layoutInflater)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPopularArticlesListBinding.inflate(inflater, container, false)
         return binding.root
@@ -67,16 +68,10 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
         articlesAdapter.setOnItemClickListener(this)
 
         activity?.let {
-            val recyclerViewState : Parcelable? = rvPopularArticles.layoutManager?.onSaveInstanceState()
-
-            rvPopularArticles.layoutManager = LinearLayoutManager(it)
-            rvPopularArticles.adapter = articlesAdapter
-            rvPopularArticles.addItemDecoration(
-                DividerItemDecoration(it, LinearLayoutManager(it).orientation)
-            )
-
-            recyclerViewState?.let {
-                rvPopularArticles.layoutManager?.onRestoreInstanceState(it)
+            rvPopularArticles.apply {
+                layoutManager = LinearLayoutManager(it)
+                adapter = articlesAdapter
+                addItemDecoration(DividerItemDecoration(it, LinearLayoutManager(it).orientation))
             }
         }
     }
@@ -87,22 +82,41 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
 
     private fun initObservers() {
         mainViewModel.popularArticlesLiveData.observe(viewLifecycleOwner, {
-            when(it){
-                is Status.Loading -> {
-                    progressBar.isVisible = it.showLoading
+            it?.let {status ->
+                when(status){
+                    is Status.Loading -> {
+                        progressBar.isVisible = status.showLoading
+                    }
+                    is Status.Error -> {
+                        status.errorMsg?.let {
+                            rvPopularArticles.isVisible = false
+                            tvError.apply {
+                                isVisible = true
+                                text = it
+                            }
+                        }
+                    }
+                    is Status.Success -> {
+                        status.data?.let { data ->
+                            rvPopularArticles.isVisible = true
+                            tvError.isVisible = false
+                            val articlesList : List<PopularArticle> = data as List<PopularArticle>
+                            if(articlesList.isNotEmpty())
+                                articlesAdapter.setArticlesList(articlesList)
+                            if(mainViewModel.selectedArticle.value == null && articlesList.isNotEmpty())
+                                mainViewModel.selectedArticle.value = articlesList[0]
+                        }
+                    }
                 }
-                is Status.Success -> {
-                    val list = it.data as List<PopularArticle>
-                    articlesAdapter.setArticlesList(list)
-                }
-                is Status.Error -> {}
             }
+
         })
     }
 
     override fun onItemClicked(article: PopularArticle) {
         mainViewModel.selectedArticle.value = article
-        findNavController().navigate(R.id.popularArticlesDetailFragment)
+        if(!mainViewModel.isTwoPaneView)
+            findNavController().navigate(R.id.popularArticlesDetailFragment)
     }
 
     override fun clearResources() {

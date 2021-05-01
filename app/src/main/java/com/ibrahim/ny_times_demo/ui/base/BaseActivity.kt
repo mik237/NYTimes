@@ -13,4 +13,11 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
     }
+
+    abstract fun clearResources()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        clearResources()
+    }
 }

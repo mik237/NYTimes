@@ -32,4 +32,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 .popBackStack(R.id.popularArticlesListFragment, false)
     }
 
+    override fun clearResources() {
+
+    }
+
 }

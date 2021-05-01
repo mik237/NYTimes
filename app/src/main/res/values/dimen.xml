@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dimensions in dp -->
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="four_dp">4dp</dimen>
+    <dimen name="twelve_dp">12dp</dimen>
+    <dimen name="sixteen_dp">16dp</dimen>
+    <dimen name="thirty_two_dp">32dp</dimen>
+    <dimen name="fourty_eight_dp">48dp</dimen>
+    <dimen name="one_eighty_dp">180dp</dimen>
+
+    <!-- dimensions in sp -->
+    <dimen name="sixteen_sp">16sp</dimen>
+    <dimen name="twelve_sp">12sp</dimen>
+    <dimen name="fourteen_sp">14sp</dimen>
+
+</resources>

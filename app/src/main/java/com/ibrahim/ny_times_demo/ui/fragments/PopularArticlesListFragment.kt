@@ -1,7 +1,6 @@
 package com.ibrahim.ny_times_demo.ui.fragments
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

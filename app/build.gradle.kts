@@ -7,6 +7,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("../keystore/NYTimesKeystore.jks")
+            storePassword = "qwerty12345"
+            keyAlias = "key"
+            keyPassword = "qwerty12345"
+        }
+    }
     compileSdkVersion(Versions.compileSdk)
     buildToolsVersion(Versions.buildTools)
 
@@ -41,6 +49,9 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
+
+            signingConfig = signingConfigs.getByName("release")
+
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }

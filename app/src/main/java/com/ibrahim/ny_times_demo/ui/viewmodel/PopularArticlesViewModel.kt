@@ -1,15 +1,15 @@
 package com.ibrahim.ny_times_demo.ui.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.*
-import com.ibrahim.ny_times_demo.BuildConfig
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ibrahim.ny_times_demo.api.Status
 import com.ibrahim.ny_times_demo.api.model.ResponseMostPopularArticles
 import com.ibrahim.ny_times_demo.mappers.ViewStateMapperImpl
 import com.ibrahim.ny_times_demo.ui.activities.main.MainActivityRepository
 import com.ibrahim.ny_times_demo.ui.fragments.models.PopularArticle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject

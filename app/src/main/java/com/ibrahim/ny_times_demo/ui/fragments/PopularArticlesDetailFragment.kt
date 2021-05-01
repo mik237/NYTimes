@@ -46,27 +46,29 @@ class PopularArticlesDetailFragment : BaseFragment<FragmentPopularArticlesDetail
 
     private fun initViews() {
         binding.btnViewDetail.setOnClickListener {
-            Intent(requireContext(), WebViewActivity::class.java).apply {
-                        putExtra(Constants.ARTICLE_URL, articleUrl)
-                        startActivity(this)
-                    }
-
+            Intent(
+                requireContext(),
+                WebViewActivity::class.java)
+                .apply {
+                    putExtra(Constants.ARTICLE_URL, articleUrl)
+                    startActivity(this)
+                }
         }
     }
 
     private fun initObservers() {
         mainViewModel.selectedArticle.observe(viewLifecycleOwner, {
             it?.let { article ->
-               tvTitle.text =  article.title
+                tvTitle.text =  article.title
                 tvAuthor.text = article.byline
                 tvAbstract.text = article.abstract
                 tvPublishedDate.text = article.publish_data
                 val imageUrl = article.imageUrlLarge ?: article.imageUrl
                 articleUrl = article.url
                 Glide.with(ivArticleImage)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.ic_placeholder)
-                        .into(ivArticleImage)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_placeholder)
+                    .into(ivArticleImage)
             }
         })
     }

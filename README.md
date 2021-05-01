@@ -2,6 +2,9 @@
 
 NYTimes Project code structure:
 
+<b>How to run:</b>
+Import the project in Android Studio and build.
+
 <b>Packages</b>
 
   1. <b>adapters:</b>    Containing the PopularArticlesListAdapter class which is responsible for dispatching list of popular articles to recyclerview.
@@ -26,6 +29,4 @@ Application Architecture using MVI architecture.
 
 <b>Flow chart</b> (https://drive.google.com/file/d/1UBNVYVNqWc13pKwtb2Q7GK8qrjUo2VV_/view?usp=sharing)
 
-![alt text](https://drive.google.com/file/d/1UBNVYVNqWc13pKwtb2Q7GK8qrjUo2VV_/view?usp=sharing)
-<img src="https://drive.google.com/file/d/1UBNVYVNqWc13pKwtb2Q7GK8qrjUo2VV_/view?usp=sharing">
 

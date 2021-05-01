@@ -21,8 +21,6 @@ object Androidx{
     const val extensions = "android.arch.lifecycle:extensions:1.1.1"
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
     const val legacy_support_v4 = "androidx.legacy:legacy-support-v4:1.0.0"
-    const val cardView = "androidx.cardview:cardview:1.0.0"
-    const val multidex = "androidx.multidex:multidex:2.0.1"
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val activity = "androidx.activity:activity-ktx:1.2.2"
     const val fragment = "androidx.fragment:fragment:1.3.3"
@@ -50,8 +48,6 @@ object Dependencies{
 object Retrofit{
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val gson_converter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    const val retrofit2_rxjava2_adapter = "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
-    const val converter_scalars = "com.squareup.retrofit2:converter-scalars:2.9.0"
 }
 
 object Hilt{
@@ -68,15 +64,4 @@ object NavigationView{
 object Coroutines{
     const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
-}
-
-
-
-object Google{
-    const val maps = "com.google.android.gms:play-services-maps:17.0.0"
-    const val locations = "com.google.android.gms:play-services-location:17.1.0"
-    const val places = "com.google.android.gms:play-services-places:17.0.0"
-    const val places_library = "com.google.android.libraries.places:places:2.4.0"
-    const val sms_retrieval_api = "com.google.android.gms:play-services-auth-api-phone:17.5.0"
-    const val material = "com.google.android.material:material:1.2.0-alpha04"
 }

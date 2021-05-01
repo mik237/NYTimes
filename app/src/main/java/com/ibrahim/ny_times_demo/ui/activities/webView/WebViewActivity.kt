@@ -52,7 +52,7 @@ class WebViewActivity : BaseActivity<ActivityWebViewBinding>() {
 
 
     override fun clearResources() {
-        articlesWebView.loadUrl("about:blank")
+        articlesWebView.loadUrl(Constants.BLANK_URL)
         articlesWebView.destroy()
     }
 }

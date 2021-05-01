@@ -1,5 +1,6 @@
 package com.ibrahim.ny_times_demo.api
 
+import com.ibrahim.ny_times_demo.util.Constants
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 
@@ -21,7 +22,7 @@ inline fun <T>networkBoundResource(
         }
     }
     else{
-        emit(Status.Error<String>("Not Connected to Internet!"))
+        emit(Status.Error<String>(Constants.NO_INTERNET_CONNECTION))
     }
 
 

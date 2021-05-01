@@ -19,6 +19,7 @@ import com.ibrahim.ny_times_demo.databinding.FragmentPopularArticlesListBinding
 import com.ibrahim.ny_times_demo.ui.base.BaseFragment
 import com.ibrahim.ny_times_demo.ui.fragments.models.PopularArticle
 import com.ibrahim.ny_times_demo.ui.viewmodel.PopularArticlesViewModel
+import com.ibrahim.ny_times_demo.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_popular_articles_list.*
 import javax.inject.Inject
@@ -77,7 +78,7 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
     }
 
     private fun fetchPopularArticles() {
-        mainViewModel.getNYTimesMostPopularArticles("all-sections", 7, BuildConfig.API_KEY)
+        mainViewModel.getNYTimesMostPopularArticles(Constants.ALL_SECTIONS, Constants.PERIOD, BuildConfig.API_KEY)
     }
 
     private fun initObservers() {

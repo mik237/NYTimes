@@ -5,7 +5,7 @@ import retrofit2.Response
 
 inline fun <T>networkBoundResource(
         crossinline isNetworkConnected : suspend () -> Boolean,
-    crossinline fetch: suspend () -> Response<T>
+        crossinline fetch: suspend () -> Response<T>
 ) = flow {
 
 

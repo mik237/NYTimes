@@ -24,6 +24,4 @@ inline fun <T>networkBoundResource(
     else{
         emit(Status.Error<String>(Constants.NO_INTERNET_CONNECTION))
     }
-
-
 }

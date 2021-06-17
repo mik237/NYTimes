@@ -1,7 +1,6 @@
 package com.ibrahim.ny_times_demo.ui.activities.main
 
 import com.ibrahim.ny_times_demo.api.NetworkService
-import com.ibrahim.ny_times_demo.api.model.ResponseMostPopularArticles
 import com.ibrahim.ny_times_demo.api.networkBoundResource
 import com.ibrahim.ny_times_demo.util.ConnectionManager
 import javax.inject.Inject

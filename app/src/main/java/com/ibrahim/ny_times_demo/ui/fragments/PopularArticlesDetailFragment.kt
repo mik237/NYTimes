@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.ibrahim.ny_times_demo.R
 import com.ibrahim.ny_times_demo.databinding.FragmentPopularArticlesDetailBinding
@@ -57,7 +58,7 @@ class PopularArticlesDetailFragment : BaseFragment<FragmentPopularArticlesDetail
     }
 
     private fun initObservers() {
-        mainViewModel.selectedArticle.observe(viewLifecycleOwner, {
+        mainViewModel.selectedArticle.observe(viewLifecycleOwner, Observer{
             it?.let { article ->
                 tvTitle.text =  article.title
                 tvAuthor.text = article.byline

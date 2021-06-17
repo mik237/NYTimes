@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,7 +82,7 @@ class PopularArticlesListFragment : BaseFragment<FragmentPopularArticlesListBind
     }
 
     private fun initObservers() {
-        mainViewModel.popularArticlesLiveData.observe(viewLifecycleOwner, {
+        mainViewModel.popularArticlesLiveData.observe(viewLifecycleOwner, Observer{
             it?.let {status ->
                 when(status){
                     is Status.Loading -> {
